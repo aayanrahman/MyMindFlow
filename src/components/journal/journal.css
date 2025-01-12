@@ -1,3 +1,25 @@
+:root {
+  --journal-bg: white;
+  --journal-text-color: #1a1a1a;
+  --journal-border-color: #cccccc;
+  --journal-placeholder-color: #666666;
+  --journal-button-bg: #e0e0e0;
+  --journal-button-hover-bg: #d0d0d0;
+  --journal-export-button-bg: #007bff;
+  --journal-export-button-hover-bg: #0056b3;
+}
+
+:root[data-bs-theme="dark"] {
+  --journal-bg: rgba(0, 0, 0, 0.5);
+  --journal-text-color: #ffffff;
+  --journal-border-color: #444444;
+  --journal-placeholder-color: #cccccc;
+  --journal-button-bg: rgba(255, 255, 255, 0.1);
+  --journal-button-hover-bg: rgba(255, 255, 255, 0.2);
+  --journal-export-button-bg: #10b981;
+  --journal-export-button-hover-bg: #059669;
+}
+
 .journal-container {
   max-width: 600px;
   margin: 2rem auto;
@@ -5,7 +27,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--journal-bg);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -20,7 +42,7 @@ h1 {
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
-  color: white;
+  color: var(--journal-text-color);
   margin-bottom: 1.5rem;
 }
 
@@ -37,16 +59,15 @@ textarea {
   max-width: 500px;
   min-height: 140px;
   padding: 1rem;
-  border: 1px solid #e1e5ea;
+  border: 1px solid var(--journal-border-color);
   border-radius: 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
   resize: none;
   transition: all 0.2s ease-in-out;
   background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  color: var(--journal-text-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  
 }
 
 textarea:focus {
@@ -57,7 +78,7 @@ textarea:focus {
 }
 
 textarea::placeholder {
-  color: #9ca3af;
+  color: var(--journal-placeholder-color);
 }
 
 .button-group {
@@ -87,19 +108,109 @@ button:disabled {
 }
 
 .add-button {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: var(--journal-button-bg);
+  color: var(--journal-text-color);
 }
 
 .add-button:hover:not(:disabled) {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--journal-button-hover-bg);
 }
 
 .export-button {
-  background-color: #10b981;
+  background-color: var(--journal-export-button-bg);
   color: white;
 }
 
 .export-button:hover:not(:disabled) {
-  background-color: #059669;
+  background-color: var(--journal-export-button-hover-bg);
+}
+
+.success-alert {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #d1fae5;
+  border: 1px solid #10b981;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.success-alert p {
+  font-size: 0.95rem;
+  color: #065f46;
+}
+
+.entries-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.entry-card {
+  padding: 1.25rem;
+  background-color: var(--journal-button-bg);
+  border: 1px solid var(--journal-border-color);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.entry-card:hover {
+  background-color: var(--journal-button-hover-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.entry-date {
+  font-size: 0.875rem;
+  color: var(--journal-placeholder-color);
+  margin-right: 1rem; /* Add space between the date and the delete button */
+}
+
+.delete-button {
+  color: #ef4444;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.entry-text {
+  font-size: 1rem;
+  color: var(--journal-text-color);
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  .journal-container {
+    padding: 1rem;
+  }
+
+  .journal-content {
+    padding: 1.5rem;
+  }
+
+  button {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
 }
