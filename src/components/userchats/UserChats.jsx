@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import './UserChats.css';
 
 // Replace with your API key
-const GEMINI_API_KEY = "AIzaSyBd4lFoQXhMHCWSUKtxkqi16_hKPLPBfcw";
+const GEMINI_API_KEY = "put the fries in the bag";
 
 function UserChats() {
   const [isListening, setIsListening] = useState(false);
@@ -40,12 +40,17 @@ function UserChats() {
       // Provide system context and user prompt
       const prompt = `${SYSTEM_CONTEXT}\n\nUser: ${text}\nAssistant:`;
       const result = await model.generateContent(prompt);
-      return await result.response.text();
+  
+      // Sanitize the response to remove or replace `***`
+      let response = await result.response.text();
+      response = response.replace(/\*+/g, ""); // Remove sequences of `*`
+  
+      return response;
     } catch (error) {
       console.error('Error fetching AI response:', error);
       return "I'm having trouble connecting. Please check your API key and try again.";
     }
-  };
+  }; 
 
   // Typed display effect for AI response
   const typeResponse = (text) => {
