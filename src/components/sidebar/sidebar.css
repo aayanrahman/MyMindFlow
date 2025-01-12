@@ -1,0 +1,50 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-menu {
+    padding: 20px;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.sidebar-menu li span {
+    margin-left: 10px;
+}
+
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 220px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}

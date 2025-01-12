@@ -1,0 +1,57 @@
+.user-chats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+
+
+.speak-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.glass-ball-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.glass-ball {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 50px #fff,
+    inset 20px 0 80px #01B2FF,
+    inset -20px 0 80px #8000FF,
+    inset 20px 0 300px #00785C,
+    inset -20px 0 300px #8300F5,
+    0 0 50px #00785C,
+    -10px 0 80px #000278,
+    10px 0 80px #8000FF;
+  animation: glassBallAnimation 20s infinite;
+}
+
+@keyframes glassBallAnimation {
+  0% {
+    transform: rotate(0);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(100deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.user-chats p {
+  white-space: pre-wrap; /* Preserve whitespace for typing effect */
+}
