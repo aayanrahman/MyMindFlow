@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import './UserChats.css';
 
 // Replace with your API key
-const GEMINI_API_KEY = "put the fries in the bag";
+const GEMINI_API_KEY = "just put the fries in the bag";
 
 function UserChats() {
   const [isListening, setIsListening] = useState(false);
@@ -16,7 +16,8 @@ function UserChats() {
   const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
   const model = genAI ? genAI.getGenerativeModel({ model: "gemini-pro" }) : null;
 
-  const SYSTEM_CONTEXT = "You are a supportive AI companion focused on listening. Respond briefly, empathetically, and non-judgmentally, allowing the user to express their thoughts and feelings. Avoid lengthy explanations or unsolicited advice, but offer relevant tips or resources for personal growth when appropriate. After listening, you can suggest simple techniques, such as breathing exercises, mindfulness practices, or websites that might be helpful in their situation. If sensitive topics arise, such as self-harm or suicide, gently encourage the user to seek professional help and provide appropriate resources like helplines or websites. Do not attempt to diagnose or offer therapeutic advice. Always create a safe, supportive space for the user to express themselves and follow these guidelines to encourage growth, self-care, and positive development.";
+  const SYSTEM_CONTEXT = "I can't seem to stay away from it, no matter how much I tell myself it's the last time. Just a small bet, I tell myself. It’s not like I’m going to lose anything big. But then, it never feels small. After I win, I feel this rush, this high, like I’m on top of the world. But when I lose, the weight of it sinks in. I tell myself I’ll stop tomorrow, but tomorrow never comes. It’s been a few days, but I’m already feeling the pull again. I found myself checking the odds for tonight’s game, just out of curiosity. Of course, curiosity quickly turns into action. I promised I wouldn’t, but here I am. It’s like I’m stuck in a cycle, constantly chasing that win. I know it’s hurting me, but I can’t break free. I’ve lost track of how many times I’ve said, “I’ll stop after this one.” I always think this is the last bet, but the truth is, it’s never the last. Even when I win, it’s not enough. There’s always a need to bet more, to win more. The excitement of the gamble has become an addiction, and I feel trapped in it. I want to stop, but I don’t know how. I’m starting to feel numb to the losses. It's like I don't even care anymore. The wins don’t excite me the way they used to. I just keep going through the motions, always looking for the next game, the next chance. There’s a growing sense of emptiness inside, but I can’t figure out how to fill it without gambling. I’m afraid to admit it, but I think I might be addicted."
+  ;
 
   // Text-to-speech for AI responses (optional)
   const speakText = (text) => {
