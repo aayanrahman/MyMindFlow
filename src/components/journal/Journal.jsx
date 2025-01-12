@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Trash2, Download, Plus } from 'lucide-react';
+import './journal.css';
 
 const Journal = () => {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState('');
+  const [hoveredEntry, setHoveredEntry] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
-  // Load entries from localStorage on mount
   useEffect(() => {
     const savedEntries = localStorage.getItem('journalEntries');
     if (savedEntries) {
@@ -13,16 +16,26 @@ const Journal = () => {
   }, []);
 
   const handleAddEntry = () => {
+    if (!newEntry.trim()) return;
+
     const entry = {
       id: Date.now(),
       text: newEntry,
       date: new Date().toISOString()
     };
-    
+
     const updatedEntries = [...entries, entry];
     setEntries(updatedEntries);
     localStorage.setItem('journalEntries', JSON.stringify(updatedEntries));
     setNewEntry('');
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2000);
+  };
+
+  const handleDeleteEntry = (id) => {
+    const updatedEntries = entries.filter(entry => entry.id !== id);
+    setEntries(updatedEntries);
+    localStorage.setItem('journalEntries', JSON.stringify(updatedEntries));
   };
 
   const handleExport = () => {
@@ -38,36 +51,68 @@ const Journal = () => {
 
   return (
     <div className="journal-container">
-      <h1>Journal App</h1>
-      <textarea
-        className="journal-input"
-        value={newEntry}
-        onChange={(e) => setNewEntry(e.target.value)}
-        placeholder="Write your journal entry here..."
-      />
-      <div className="button-container">
-        <button 
-          onClick={handleAddEntry}
-          disabled={!newEntry.trim()}
-        >
-          Add Entry
-        </button>
-        <button 
-          onClick={handleExport}
-          disabled={entries.length === 0}
-        >
-          Export Entries
-        </button>
-      </div>
-      <div className="entries-list">
-        {entries.map((entry) => (
-          <div key={entry.id} className="entry-item">
-            <div className="entry-date">
-              {new Date(entry.date).toLocaleDateString()}
-            </div>
-            <div className="entry-text">{entry.text}</div>
+      <div className="journal-content">
+        <h1>Personal Journal</h1>
+        
+        <div className="entry-input-container">
+          <textarea
+            value={newEntry}
+            onChange={(e) => setNewEntry(e.target.value)}
+            placeholder="Write your thoughts..."
+          />
+          <div className="button-group">
+            <button
+              className="add-button"
+              onClick={handleAddEntry}
+              disabled={!newEntry.trim()}
+            >
+              <Plus size={20} /> Add Entry
+            </button>
+            <button
+              className="export-button"
+              onClick={handleExport}
+              disabled={entries.length === 0}
+            >
+              <Download size={20} /> Export
+            </button>
           </div>
-        ))}
+        </div>
+
+        {showAlert && (
+          <div className="success-alert">
+            <p>Entry added successfully!</p>
+          </div>
+        )}
+
+        <div className="entries-list">
+          {entries.map((entry) => (
+            <div
+              key={entry.id}
+              className="entry-card"
+              onMouseEnter={() => setHoveredEntry(entry.id)}
+              onMouseLeave={() => setHoveredEntry(null)}
+            >
+              <div className="entry-header">
+                <span className="entry-date">
+                  {new Date(entry.date).toLocaleDateString(undefined, {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+                <button
+                  onClick={() => handleDeleteEntry(entry.id)}
+                  className={`delete-button ${hoveredEntry === entry.id ? 'visible' : ''}`}
+                  aria-label="Delete entry"
+                >
+                  <Trash2 size={18} />
+                </button>
+              </div>
+              <p className="entry-text">{entry.text}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

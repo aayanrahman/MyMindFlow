@@ -1,19 +1,18 @@
 /* General Sidebar Styling */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Hidden by default */
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s ease;
-    z-index: 1000;
-  }
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease;
+  z-index: 1000;
+  padding-top: 20px;
+}
   
   .sidebar.active {
     left: 0; /* Show sidebar when active */
@@ -22,8 +21,13 @@
   .sidebar-menu {
     list-style: none;
     padding: 0;
+    width: 100%;
+    margin-top: 60px; /* Add space for menu icon */
   }
-  
+
+  .theme-toggle:hover {
+    color: #007bff;
+  }
   .sidebar-item {
     margin: 20px 0;
   }
@@ -34,7 +38,59 @@
     display: flex;
     align-items: center;
   }
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .theme-toggle span {
+    margin-left: 10px;
+  }
+
+  :root[data-bs-theme="light"] {
+    --bs-body-bg: #ffffff;
+    --bs-body-color: #212529;
+  }
   
+  :root[data-bs-theme="dark"] {
+    --bs-body-bg: #212529;
+    --bs-body-color: #ffffff;
+  }
+  
+  body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+ 
+  .sidebar-item {
+    margin: 20px 0;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+.sidebar-link, 
+.theme-toggle {
+  padding: 10px 15px;
+  width: 100%;
+}
+  
+  .sidebar-link {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  width: 100%;
+}
   .sidebar-link span {
     margin-left: 10px;
   }
