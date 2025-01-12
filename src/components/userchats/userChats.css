@@ -1,6 +1,28 @@
+:root {
+  --userchats-bg: white;
+  --userchats-text-color: #1a1a1a;
+  --userchats-border-color: #cccccc;
+  --userchats-placeholder-color: #666666;
+  --userchats-button-bg: #e0e0e0;
+  --userchats-button-hover-bg: #d0d0d0;
+  --userchats-export-button-bg: #007bff;
+  --userchats-export-button-hover-bg: #0056b3;
+}
+
+:root[data-bs-theme="dark"] {
+  --userchats-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --userchats-text-color: #ffffff;
+  --userchats-border-color: #444444;
+  --userchats-placeholder-color: #cccccc;
+  --userchats-button-bg: rgba(255, 255, 255, 0.1);
+  --userchats-button-hover-bg: rgba(255, 255, 255, 0.2);
+  --userchats-export-button-bg: #10b981;
+  --userchats-export-button-hover-bg: #059669;
+}
+
 .app-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: var(--userchats-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +45,7 @@
 }
 
 .chat-title {
-  color: white;
+  color: var(--userchats-text-color);
   font-size: 2.5rem;
   margin: 20px 0;
   text-align: center;
@@ -89,8 +111,8 @@
   padding: 12px 24px;
   border: none;
   border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: var(--userchats-button-bg);
+  color: var(--userchats-text-color);
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -98,7 +120,7 @@
 }
 
 .chat-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--userchats-button-hover-bg);
   transform: translateY(-2px);
 }
 
@@ -136,7 +158,7 @@
   border-radius: 15px;
   max-width: 80%;
   word-wrap: break-word;
-  color: white;
+  color: var(--userchats-text-color);
 }
 
 .message.user {

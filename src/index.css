@@ -3,12 +3,64 @@
   line-height: 1.5;
   font-weight: 400;
 
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --link-hover-color: #007bff;
+  --sidebar-background-color: #f9f9f9;
+  --sidebar-text-color: #333333;
+  --sidebar-link-hover-color: #007bff;
+  --overlay-background-color: rgba(0, 0, 0, 0.5);
+
+  --journal-bg: #f0f0f0;
+  --journal-text-color: #1a1a1a;
+  --journal-border-color: #cccccc;
+  --journal-placeholder-color: #666666;
+  --journal-button-bg: #e0e0e0;
+  --journal-button-hover-bg: #d0d0d0;
+  --journal-export-button-bg: #007bff;
+  --journal-export-button-hover-bg: #0056b3;
+
+  --settings-bg: #f0f0f0;
+  --settings-text-color: #1a1a1a;
+  --settings-border-color: #cccccc;
+  --settings-placeholder-color: #666666;
+  --settings-button-bg: #e0e0e0;
+  --settings-button-hover-bg: #d0d0d0;
+  --settings-export-button-bg: #007bff;
+  --settings-export-button-hover-bg: #0056b3;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-bs-theme="dark"] {
+  --background-color: #1a1a2e;
+  --text-color: #ffffff;
+  --link-hover-color: #00bcd4;
+  --sidebar-background-color: #2a2a3e;
+  --sidebar-text-color: #ffffff;
+  --sidebar-link-hover-color: #00bcd4;
+  --overlay-background-color: rgba(0, 0, 0, 0.5);
+
+  --journal-bg: rgba(0, 0, 0, 0.5);
+  --journal-text-color: #ffffff;
+  --journal-border-color: #444444;
+  --journal-placeholder-color: #cccccc;
+  --journal-button-bg: rgba(255, 255, 255, 0.1);
+  --journal-button-hover-bg: rgba(255, 255, 255, 0.2);
+  --journal-export-button-bg: #10b981;
+  --journal-export-button-hover-bg: #059669;
+
+  --settings-bg: rgba(0, 0, 0, 0.5);
+  --settings-text-color: #ffffff;
+  --settings-border-color: #444444;
+  --settings-placeholder-color: #cccccc;
+  --settings-button-bg: rgba(255, 255, 255, 0.1);
+  --settings-button-hover-bg: rgba(255, 255, 255, 0.2);
+  --settings-export-button-bg: #10b981;
+  --settings-export-button-hover-bg: #059669;
 }
 
 a {
@@ -26,41 +78,6 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

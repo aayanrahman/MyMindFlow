@@ -1,11 +1,33 @@
-.settings-container {
+:root {
+    --settings-bg: #f0f0f0;
+    --settings-text-color: #1a1a1a;
+    --settings-border-color: #cccccc;
+    --settings-placeholder-color: #666666;
+    --settings-button-bg: #e0e0e0;
+    --settings-button-hover-bg: #d0d0d0;
+    --settings-export-button-bg: #007bff;
+    --settings-export-button-hover-bg: #0056b3;
+  }
+  
+  :root[data-bs-theme="dark"] {
+    --settings-bg: rgba(0, 0, 0, 0.5);
+    --settings-text-color: #ffffff;
+    --settings-border-color: #444444;
+    --settings-placeholder-color: #cccccc;
+    --settings-button-bg: rgba(255, 255, 255, 0.1);
+    --settings-button-hover-bg: rgba(255, 255, 255, 0.2);
+    --settings-export-button-bg: #10b981;
+    --settings-export-button-hover-bg: #059669;
+  }
+  
+  .settings-container {
     max-width: 600px;
     margin: 2rem auto;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--settings-bg);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -15,7 +37,7 @@
     font-size: 2.5rem;
     font-weight: 700;
     text-align: center;
-    color: var(--text-color);
+    color: var(--settings-text-color);
     margin-bottom: 1.5rem;
   }
   
@@ -34,10 +56,10 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
+    background-color: var(--settings-button-bg);
+    color: var(--settings-text-color);
   }
   
   .theme-toggle-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--settings-button-hover-bg);
   }
