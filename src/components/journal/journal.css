@@ -1,0 +1,133 @@
+.journal-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.journal-input {
+  width: 100%;
+  min-height: 200px;
+  padding: 15px;
+  margin: 15px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #4CAF50;
+  color: white;
+}
+
+button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.entries-list {
+  margin-top: 20px;
+}
+
+.entry-item {
+  padding: 15px;
+  margin: 10px 0;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+.entry-date {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.entry-text {
+  white-space: pre-wrap;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: 20px;
+  margin: 15px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76,175,80,0.2);
+}
+
+button:first-of-type {
+  background: #4CAF50;
+  color: white;
+}
+
+button:last-of-type {
+  background: #2196F3;
+  color: white;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+li {
+  padding: 15px;
+  margin: 10px 0;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+@media (max-width: 768px) {
+  .journal-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  textarea {
+    min-height: 200px;
+    margin-right: 200px;
+  }
+  
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}

@@ -2,40 +2,27 @@ import React, { useState, useRef } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import './UserChats.css';
 
-// Create your API key at https://makersuite.google.com/app/apikey
-// Replace this with your actual API key
-const GEMINI_API_KEY = ;
+// Replace with your API key
+const GEMINI_API_KEY = "AIzaSyBd4lFoQXhMHCWSUKtxkqi16_hKPLPBfcw";
 
 function UserChats() {
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [displayedResponse, setDisplayedResponse] = useState('');
   const [messages, setMessages] = useState([]);
   const [showText, setShowText] = useState(true);
   const recognitionRef = useRef(null);
-  const originalTextRef = useRef({});
-  
-  // Initialize Gemini only if API key is present
+
+  // Initialize Gemini if the API key is present
   const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
   const model = genAI ? genAI.getGenerativeModel({ model: "gemini-pro" }) : null;
 
-  const SYSTEM_CONTEXT = "You are a supportive AI companion. Keep responses brief and conversational, like a friend. Avoid long explanations. Ask occasional follow-up questions to keep the conversation flowing naturally. Limit responses to 1-2 short sentences unless specifically asked for more detail.";
+  const SYSTEM_CONTEXT = "You are a supportive AI companion focused on listening. Respond briefly, empathetically, and non-judgmentally, allowing the user to express their thoughts and feelings. Avoid lengthy explanations or unsolicited advice, but offer relevant tips or resources for personal growth when appropriate. After listening, you can suggest simple techniques, such as breathing exercises, mindfulness practices, or websites that might be helpful in their situation. If sensitive topics arise, such as self-harm or suicide, gently encourage the user to seek professional help and provide appropriate resources like helplines or websites. Do not attempt to diagnose or offer therapeutic advice. Always create a safe, supportive space for the user to express themselves and follow these guidelines to encourage growth, self-care, and positive development.";
 
-  const filterProfanity = (text) => {
-    const profanityList = ['fuck', 'shit', 'ass', 'damn', 'bitch', 'cunt', 'dick'];
-    let filteredText = text.toLowerCase();
-    profanityList.forEach(word => {
-      const regex = new RegExp(`\\b${word}\\b`, 'gi');
-      filteredText = filteredText.replace(regex, '*'.repeat(word.length));
-    });
-    return filteredText;
-  };
-
-  const speakText = (text, messageId) => {
+  // Text-to-speech for AI responses (optional)
+  const speakText = (text) => {
     try {
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(originalTextRef.current[messageId] || text);
-      utterance.rate = 1.1;
+      const utterance = new SpeechSynthesisUtterance(text);
       utterance.onstart = () => setIsPlaying(true);
       utterance.onend = () => setIsPlaying(false);
       window.speechSynthesis.speak(utterance);
@@ -44,35 +31,42 @@ function UserChats() {
     }
   };
 
+  // Generate content from Gemini API
   const getAIResponse = async (text) => {
     try {
       if (!model) {
         return "API key not configured. Please add your Gemini API key.";
       }
-
+      // Provide system context and user prompt
       const prompt = `${SYSTEM_CONTEXT}\n\nUser: ${text}\nAssistant:`;
       const result = await model.generateContent(prompt);
-      const response = await result.response.text();
-      return response.length > 100 ? response.substring(0, 100) + '...' : response;
+      return await result.response.text();
     } catch (error) {
       console.error('Error fetching AI response:', error);
       return "I'm having trouble connecting. Please check your API key and try again.";
     }
   };
 
+  // Typed display effect for AI response
   const typeResponse = (text) => {
-    let index = 0;
-    setDisplayedResponse('');
+    let currentIndex = 0;
     const interval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedResponse((prev) => prev + text[index]);
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 30);
+      setMessages((prev) => {
+        const updatedMessages = [...prev];
+        const lastMessage = updatedMessages[updatedMessages.length - 1];
+
+        if (currentIndex < text.length) {
+          lastMessage.text += text[currentIndex];
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+        }
+        return updatedMessages;
+      });
+    }, 30); // Typing speed
   };
 
+  // Handle speech recognition
   const handleSpeech = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
@@ -105,16 +99,30 @@ function UserChats() {
         setIsListening(false);
         recognitionRef.current = null;
 
-        const messageId = Date.now();
-        originalTextRef.current[messageId] = transcript;
-        setMessages((prevMessages) => [...prevMessages, { id: messageId, sender: 'user', text: filterProfanity(transcript) }]);
+        // Add user message
+        const userMessage = {
+          id: Date.now(),
+          sender: 'user',
+          text: transcript,
+        };
+        setMessages((prev) => [...prev, userMessage]);
 
+        // Get AI response
         const aiResponse = await getAIResponse(transcript);
-        const responseId = Date.now();
-        originalTextRef.current[responseId] = aiResponse;
-        setMessages((prevMessages) => [...prevMessages, { id: responseId, sender: 'ai', text: filterProfanity(aiResponse) }]);
-        typeResponse(filterProfanity(aiResponse));
-        speakText(aiResponse, responseId);
+
+        // Add AI message with empty text to enable typing effect
+        const aiMessage = {
+          id: Date.now() + 1,
+          sender: 'ai',
+          text: '',
+        };
+        setMessages((prev) => [...prev, aiMessage]);
+
+        // Apply typing effect to the last message
+        typeResponse(aiResponse);
+
+        // Speak AI response
+        speakText(aiResponse);
       } catch (error) {
         console.error('Error processing speech:', error);
       }
@@ -158,18 +166,10 @@ function UserChats() {
         {showText && (
           <div className="messages-container">
             {messages.map((message) => (
-              <div 
-                key={message.id} 
-                className={`message ${message.sender}`}
-              >
+              <div key={message.id} className={`message ${message.sender}`}>
                 {message.text}
               </div>
             ))}
-            {displayedResponse && (
-              <div className="message ai typing">
-                {displayedResponse}
-              </div>
-            )}
           </div>
         )}
       </div>
