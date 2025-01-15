@@ -7,8 +7,8 @@ This project is built using **React**, **Vite**, and **Normal CSS**, leveraging 
 ## Features
 
 - **AI-Powered Conversations**: Engage in real-time conversations with an AI therapist designed to provide empathetic and constructive feedback tailored to your needs.
+- **Journal App**: Express your feeling in real time and allow the AI to learn more about you
 - **Personalized Therapy**: The app learns from your responses to offer advice that suits your unique emotional needs.
-- **Mood Tracking**: Track your emotional progress over time and gain insights into your mental health patterns.
 - **Guided Exercises**: Access therapeutic exercises such as mindfulness practices, relaxation techniques, and cognitive-behavioral therapy (CBT) activities.
 - **Confidential and Secure**: Your privacy is a top priority. All conversations and data are securely encrypted to ensure confidentiality.
 
