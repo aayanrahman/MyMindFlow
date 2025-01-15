@@ -19,7 +19,7 @@ The app utilizes the following technologies:
 - **React**: A JavaScript library for building user interfaces.
 - **Vite**: A fast build tool that offers rapid development and fast Hot Module Replacement (HMR).
 - **Normal CSS**: For styling the application without using a CSS framework.
-- **Gemini AI**: Powers the AI therapy and conversation capabilities, providing personalized and adaptive responses based on user input.
+- **Gemini AI**: Powers the AI therapy and conversation capabilities. Sensitive for Emotional Episodes and free.
 
 ## Installation
 
